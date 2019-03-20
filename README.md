@@ -1,12 +1,18 @@
 # Jenkins Tutorial
 
+This tutorial was written for use with macOS 10.13.6 (High Sierra).
+
 [Jenkins](https://en.wikipedia.org/wiki/Jenkins_(software)) is an open source automation server written in Java. It is widely used to build and test projects continuously. This tutorial shows how to use Jenkins CI with a Github repository using [webhooks](https://en.wikipedia.org/wiki/Webhook).
+
+---
 
 ## Continuous Integration?
 
 In software engineering, continuous integration (CI) is the practice of merging all developer working copies to a shared mainline several times a day [source](https://en.wikipedia.org/wiki/Continuous_integration).
 
 A CI server checks every time code is updated to see if it builds and passes all of its tests. It ensures that new code being merged into a project does not break the system.
+
+---
 
 ## How does it work?
 
@@ -16,43 +22,53 @@ A CI server checks every time code is updated to see if it builds and passes all
 4. If project build or test fails CI server sends notifications to team (e.g. by e-mail).
 5. CI server generates reports.
 
-### Download Tomcat
+---
 
-*If you don't want to host your jenkins in Tomcat, skip those steps and keep reading [here](#use-jenkins-in-built-in-jetty-servlet)*
-
-1. I have used latest tomcat version for now which is 9. Go [here](http://tomcat.apache.org/download-90.cgi) chose **Core** and select appropriate version for your system, i have chose **tar.gz** for my **OS X EL Capitan**
-2. Extract it to somewhere that you have access, my tomcat location now is **/Users/cemalonder/Development/Libraries/apache-tomcat-9.0.0.M8**
+## Setup Jenkins
 
 ### Download Jenkins
 
-1. Go [here](https://jenkins.io/) and click on **Downlads** dropdown on the upper left, choose **2.9.war** file (or latest version at the time you are reading this tutorial).
-2. Move **jenkins.war** file **webapps** folder which is under the tomcat path in the previous step. So my jenkins location is **/Users/cemalonder/Development/Libraries/apache-tomcat-9.0.0.M8/webapps/jenkins.war**
+First, you will need to install prerequisites for testing on macOS (you may not need or require all of these).
 
-### Startup server
-
-1. **cd** into your tomcat/bin path. Mine is **/Users/cemalonder/Development/Libraries/apache-tomcat-9.0.0.M8/bin**
-2. type  
+1) If you have not already installed [Homebrew](https://brew.sh) do that first:
 
 ```
-./startup.sh
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
-
-3. Now go to your **[localhost:8080/jenkins](localhost:8080/jenkins)** in your browser. Jenkins is running!
-4. to stop tomcat, type  
+2) Install Cocoa Pods:
 
 ```
- ./shutdown.sh
+sudo gem install cocoapods
 ```
 
-### Use Jenkins in built in Jetty servlet
-
-Jenkins has built in **Jetty** servlet container. **cd** (change directory in terminal) into to your jenkins.war folder and type:
+3) Install Java with Homebrew:
 
 ```
-java -jar jenkins.war
+brew cask install homebrew/cask-versions/java8
 ```
 
-Now go to your **[localhost:8080](localhost:8080/jenkins)** in your browser. Jenkins is running!
+Next, go ahead and install Jenkins via Homebrew:
+
+```
+brew install jenkins
+```
+
+Start Jenkins (and automatically restart it when logging in)
+
+```
+brew services start jenkins
+```
+
+### Setup Jenkins
+
+Once Jenkins is running go to ```localhost:8080```. Jenkins will begin the setup process and then you will need to manually do some setup.
+
+1) Unlock Jenkins by following the prompt (copy the value at `/Users/mac/.jenkins/secrets/initialAdminPassword`).
+2) Select which packages you need. Use the default packages and `Github`.
+3) Create an admin account
+4) Click `Save & Finish` and `Start Using Jenkins`
+
+---
 
 ## Communication between Jenkins and Github
 
