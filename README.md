@@ -32,43 +32,94 @@ The idea is simple. Instead of waiting lost of components to integrate, project 
 1. **cd** into your tomcat/bin path. Mine is **/Users/cemalonder/Development/Libraries/apache-tomcat-9.0.0.M8/bin**
 2. type  
 
- > ./startup.sh
+```
+./startup.sh
+```
 
 3. Now go to your **[localhost:8080/jenkins](localhost:8080/jenkins)** in your browser. Jenkins is running!
 4. to stop tomcat, type  
 
- > ./shutdown.sh
-
+```
+ ./shutdown.sh
+```
 
 ### Use Jenkins in built in Jetty servlet
 Jenkins has built in **Jetty** servlet container. **cd** (change directory in terminal) into to your jenkins.war folder and type:
 
-  > java -jar jenkins.war
+```
+java -jar jenkins.war
+```
 
 Now go to your **[localhost:8080](localhost:8080/jenkins)** in your browser. Jenkins is running!
 
 ## Communication between Jenkins and Github
-We need to communication between our Jenkins Server and Github Repository. Since we are working on localhost, we should tunnel localhost to make it available for Github. We will use **ngrok** for this purpose.
-- downlad ngrok matches with your system [here](https://ngrok.com/download)
-- unzip it. My **ngrok** location is **/Users/cemalonder/Development/Libraries** cd into here.
-- type:
+We need to communicate between our Jenkins Server and Github Repository. Since we are working on localhost, we need to make it available for Github. We will use [serveo.net](serveo.net) for this.
 
-  > ./ngrok http 8080
+Serveo does not require any download, installation or signup for use. It simply uses ssh for tunneling.
 
-- ngrok terminal will pop up, copy the href next to the **Forwarding**
+You can simply run:
+```
+ssh -R 80:localhost:8080 serveo.net
+```
 
-  >  Forwarding                    http://21db9b29.ngrok.io -> localhost:8080
+Serveo will then assign you a url like `https://abc.serveo.net`.
 
-  It is http://21db9b29.ngrok.io in my terminal. Now it is our localhost:8080 which is the port tomcat runs. When someone clicks on this link while we keep ngrok terminal running, they can get our localhost like getting a webpage!
+However, you won't be guaranteed to always have the same domain:
 
-- Go to your Github repository. Click on Settings -> Webhooks & services. In my case
-**https://github.com/ciglipaf/jenkins-tutorial/settings/hooks** it is.
+> The subdomain is chosen deterministically based on your IP address, the provided SSH username, and subdomain availability, so you'll often get the same subdomain between restarts. You can also request a particular subdomain:
+
+### Request a subdomain
+
+You can [request a specific Serveo domain](https://security.stackexchange.com/a/184951) (out of the 3 to 5 thousand available):
+
+```
+ssh -R magis:80:localhost:8080 serveo.net
+```
+
+Where `magis` is a specific subdomain.
+
+However, note:
+
+> If somebody else has taken it when you try to connect, you'll get a different subdomain. [source](https://security.stackexchange.com/questions/184829/any-alternative-to-ngrok-for-constant-connection#comment362569_184951)
+
+### Use a custom domain
+
+So your safest bet is to use a custom domain. The full instructions are on [the serveo website](http://serveo.net), but can be summarized in these three steps:
+
+1) `ssh-keygen -l` and note your key's fingerprint
+2) Add an A record pointing to `159.89.214.31`
+3) Add a TXT record `authkeyfp=[fingerprint]`
+
+Then you can establish the connection with:
+
+```
+ssh -R subdomain.example.com:80:localhost:8080 serveo.net
+```
+
+### Keep Serveo connection alive
+
+You can use `autossh` to keep the tunnel alive. On macOS you install it with Homebrew:
+
+```
+brew install autossh
+```
+
+And then use `autossh` to connect:
+
+```
+autossh -M 0 -o "ServerAliveInterval 30" -o "ServerAliveCountMax 3" -R subdomain.example.com:80:localhost:8080 serveo.net
+```
+
+### Github setup
+
+- Go to your Github repository. Click on Settings -> Webhooks & services.
 - Click on **Add service** dropdown. Select **Jenkins (Git plugin)**.
-- Paste your ngrok link here with some addition. Our ngrok link hrefs to tomcat, while we want to go jenkins, add "/jenkins" and "/github-webhook/" for the webhook part. Final link is **http://21db9b29.ngrok.io/jenkins/github-webhook/**
+- Paste your webhook link here. It should look like **https://subdomain.example.com/jenkins/github-webhook/**
 - Click "Add service" and "Test service".
 
 ## Resources
 1. [Jenkins merges branches into master](https://www.cloudbees.com/blog/dont-phunk-my-stable-branch-jenkins-pre-tested-commits-stop-breaking-stable-branches )
 2. [Jenkins vide tutorial series](https://www.youtube.com/watch?v=1JSOGJQAhtE)
-3. [ngrok tutorial](https://www.sitepoint.com/accessing-localhost-from-anywhere/)
-4. [Jenkins step by step tutorials](http://www.tutorialspoint.com/jenkins/index.htm)
+3. [Jenkins step by step tutorials](http://www.tutorialspoint.com/jenkins/index.htm)
+4. [Serveo](http://serveo.net)
+5. [autossh](https://www.everythingcli.org/ssh-tunnelling-for-fun-and-profit-autossh/)
