@@ -87,7 +87,11 @@ However, you won't be guaranteed to always have the same domain:
 
 > The subdomain is chosen deterministically based on your IP address, the provided SSH username, and subdomain availability, so you'll often get the same subdomain between restarts. You can also request a particular subdomain:
 
-### Request a subdomain
+There are two options to get around this:
+- Request a subdomain (not recommended)
+- Use a custom domain (recommended)
+
+### Request a subdomain (not recommended)
 
 You can [request a specific Serveo domain](https://security.stackexchange.com/a/184951) (out of the 3 to 5 thousand available):
 
@@ -101,7 +105,7 @@ However, note:
 
 > If somebody else has taken it when you try to connect, you'll get a different subdomain. [source](https://security.stackexchange.com/questions/184829/any-alternative-to-ngrok-for-constant-connection#comment362569_184951)
 
-### Use a custom domain
+### Use a custom domain (recommended)
 
 So your safest bet is to use a custom domain. The full instructions are on [the serveo website](http://serveo.net), but can be summarized in these three steps:
 
@@ -130,11 +134,13 @@ And then use `autossh` to connect:
 autossh -M 0 -o "ServerAliveInterval 30" -o "ServerAliveCountMax 3" -f -R subdomain.example.com:80:localhost:8080 serveo.net
 ```
 
+You can now reach your Jenkins server at `subdomain.example.com`.
+
 ### Github setup
 
 - Go to your Github repository. Click on Settings -> Webhooks & services.
 - Click on **Add service** dropdown. Select **Jenkins (Git plugin)**.
-- Paste your webhook link here. It should look like **https://subdomain.example.com/jenkins/github-webhook/**
+- Paste your webhook link here. It should look like **https://subdomain.example.com/github-webhook/**
 - Click "Add service" and "Test service".
 
 ## Resources
