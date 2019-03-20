@@ -19,7 +19,7 @@ The idea is simple. Instead of waiting lost of components to integrate, project 
 5. CI server generates reports.
 
 ### Download Tomcat
-*If you don't want to host your jenkins in Tomcat, skip those steps and keep reading [here] (#use-jenkins-in-built-in-jetty-servlet)*
+*If you don't want to host your jenkins in Tomcat, skip those steps and keep reading [here](#use-jenkins-in-built-in-jetty-servlet)*
 
 1. I have used latest tomcat version for now which is 9. Go [here](http://tomcat.apache.org/download-90.cgi) chose **Core** and select appropriate version for your system, i have chose **tar.gz** for my **OS X EL Capitan**
 2. Extract it to somewhere that you have access, my tomcat location now is **/Users/cemalonder/Development/Libraries/apache-tomcat-9.0.0.M8**
