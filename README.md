@@ -105,9 +105,10 @@ However, note:
 
 So your safest bet is to use a custom domain. The full instructions are on [the serveo website](http://serveo.net), but can be summarized in these three steps:
 
-1) `ssh-keygen -l` and note your key's fingerprint
-2) Add an A record pointing to `159.89.214.31`
-3) Add a TXT record `authkeyfp=[fingerprint]`
+1) Create a `~/.ssh` directory
+2) `ssh-keygen` and note your key's fingerprint
+3) Add an A record for your subdomain pointing to `159.89.214.31`
+4) Add a TXT record for your subdomain of `"authkeyfp=[fingerprint]"` (remove the `[` and `]` and `fingerprint` is the value from step 2)
 
 Then you can establish the connection with:
 
@@ -126,7 +127,7 @@ brew install autossh
 And then use `autossh` to connect:
 
 ```
-autossh -M 0 -o "ServerAliveInterval 30" -o "ServerAliveCountMax 3" -R subdomain.example.com:80:localhost:8080 serveo.net
+autossh -M 0 -o "ServerAliveInterval 30" -o "ServerAliveCountMax 3" -f -R subdomain.example.com:80:localhost:8080 serveo.net
 ```
 
 ### Github setup
