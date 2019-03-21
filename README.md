@@ -4,7 +4,6 @@ This tutorial was written for use with macOS 10.13.6 (High Sierra).
 
 [Jenkins](https://en.wikipedia.org/wiki/Jenkins_(software)) is an open source automation server written in Java. It is widely used to build and test projects continuously. This tutorial shows how to use Jenkins CI with a Github repository using [webhooks](https://en.wikipedia.org/wiki/Webhook).
 
----
 
 ## Continuous Integration?
 
@@ -12,7 +11,6 @@ In software engineering, continuous integration (CI) is the practice of merging 
 
 A CI server checks every time code is updated to see if it builds and passes all of its tests. It ensures that new code being merged into a project does not break the system.
 
----
 
 ## How does it work?
 
@@ -22,7 +20,6 @@ A CI server checks every time code is updated to see if it builds and passes all
 4. If project build or test fails CI server sends notifications to team (e.g. by e-mail).
 5. CI server generates reports.
 
----
 
 ## Setup Jenkins
 
@@ -70,7 +67,6 @@ Once Jenkins is running go to ```localhost:8080```. Jenkins will begin the setup
 3) Create an admin account
 4) Click `Save & Finish` and `Start Using Jenkins`
 
----
 
 ## Communication between Jenkins and Github
 
@@ -148,6 +144,7 @@ You will need to create a job to build for your repository. You can checkout thi
 - Click on **Add service** dropdown. Select **Jenkins (Git plugin)**.
 - Paste your webhook link here. It should look like **https://subdomain.example.com/github-webhook/**
 - Click "Add service" and "Test service".
+
 
 ## Resources
 
