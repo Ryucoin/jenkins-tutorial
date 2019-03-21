@@ -142,7 +142,7 @@ You will need to create a job to build for your repository. You can checkout thi
 
 - Go to your Github repository. Click on Settings -> Webhooks.
 - Click on **Add webhook**.
-- Paste your webhook like **https://subdomain.example.com/github-webhook/** in the `Payload URL` section.
+- Paste your webhook like **https://subdomain.example.com/github-webhook/** in the `Payload URL` section. **MAKE SURE THERE IS THE TRAILING `/`**
 - Change `application/x-www-form-urlencoded` to `application/json`.
 - Click "Add webhook".
 
