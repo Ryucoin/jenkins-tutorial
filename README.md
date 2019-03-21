@@ -41,7 +41,9 @@ First, you will need to install prerequisites for testing on macOS (you may not 
 sudo gem install cocoapods
 ```
 
-3) Install Java with Homebrew:
+3) Install Xcode from the Mac App Store (this can take 15 to 30 minutes so definitely continue onto the next steps even if it isn't finished)
+
+4) Install Java with Homebrew:
 
 ```
 brew cask install homebrew/cask-versions/java8
@@ -64,7 +66,7 @@ brew services start jenkins
 Once Jenkins is running go to ```localhost:8080```. Jenkins will begin the setup process and then you will need to manually do some setup.
 
 1) Unlock Jenkins by following the prompt (copy the value at `/Users/mac/.jenkins/secrets/initialAdminPassword`).
-2) Select which packages you need. Use the default packages and `Github`.
+2) Select which packages you need. Use the default packages and: `Github`, `Github Pull Request Builder`, `Github Authentication`, `Github Integration`, `Xcode Integration` and `JUnit`.
 3) Create an admin account
 4) Click `Save & Finish` and `Start Using Jenkins`
 
@@ -135,6 +137,10 @@ autossh -M 0 -o "ServerAliveInterval 30" -o "ServerAliveCountMax 3" -f -R subdom
 ```
 
 You can now reach your Jenkins server at `subdomain.example.com`.
+
+### Testing
+
+You will need to create a job to build for your repository. You can checkout this tutorial [here](https://medium.com/livefront/basic-continuous-integration-with-jenkins-xcode-and-github-e999673e73b4).
 
 ### Github setup
 
