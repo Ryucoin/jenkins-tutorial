@@ -150,7 +150,7 @@ You will need to create a job to build for your repository. You can checkout thi
 ## Resources
 
 1. [Jenkins merges branches into master](https://www.cloudbees.com/blog/dont-phunk-my-stable-branch-jenkins-pre-tested-commits-stop-breaking-stable-branches )
-2. [Jenkins vide tutorial series](https://www.youtube.com/watch?v=1JSOGJQAhtE)
+2. [Jenkins video tutorial series](https://www.youtube.com/watch?v=1JSOGJQAhtE)
 3. [Jenkins step by step tutorials](http://www.tutorialspoint.com/jenkins/index.htm)
 4. [Serveo](http://serveo.net)
 5. [autossh](https://www.everythingcli.org/ssh-tunnelling-for-fun-and-profit-autossh/)
