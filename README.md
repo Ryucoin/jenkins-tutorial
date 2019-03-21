@@ -140,10 +140,11 @@ You will need to create a job to build for your repository. You can checkout thi
 
 ### Github setup
 
-- Go to your Github repository. Click on Settings -> Webhooks & services.
-- Click on **Add service** dropdown. Select **Jenkins (Git plugin)**.
-- Paste your webhook link here. It should look like **https://subdomain.example.com/github-webhook/**
-- Click "Add service" and "Test service".
+- Go to your Github repository. Click on Settings -> Webhooks.
+- Click on **Add webhook**.
+- Paste your webhook like **https://subdomain.example.com/github-webhook/** in the `Payload URL` section.
+- Change `application/x-www-form-urlencoded` to `application/json`.
+- Click "Add webhook".
 
 
 ## Resources
